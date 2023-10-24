@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const PORT = 3001
 const { conn } = require('./db.js');
+const app = express();
 
 require('./db.js');
 
@@ -25,6 +26,18 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
+app.get('/videogames', (req, res) => {
+});
+app.get('/videogames/:idVideogame', (req, res) => {
+});
+
+app.get('/videogames/name', (req, res) => {
+});
+app.post('/videogames', (req, res) => {
+});
+app.get('/genres', (req, res) => {
+});
+
 
 server.listen(PORT, () => {
   conn.sync({force:true});
