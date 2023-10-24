@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const PORT = 3001
+const { conn } = require('./db.js');
 
 require('./db.js');
 
@@ -24,6 +26,11 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 
+server.listen(PORT, () => {
+  conn.sync({force:true});
+  console.log('Server raised in port: ' + PORT);
+});
+
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
@@ -31,5 +38,6 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err);
   res.status(status).send(message);
 });
+
 
 module.exports = server;
