@@ -1,15 +1,31 @@
 const axios = require('axios');
-const key = process.env.API_KEY;
+const  { Videogame }  = require('../models/Videogame'); 
 
 const getAllVideogames = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.rawg.io/api/games?key=${key}&page_size=100`);
-    const videogames = response.data.results; 
+    const response = await axios.get('https://api.rawg.io/api/games?key=d4ea8f08c5474a05a63307882cbd5da1');
+    const dataFromAPI = response.data.results;
 
-    res.status(200).json(videogames);
+    // Procesa los datos y guárdalos en la base de datos
+
+    dataFromAPI.forEach(async (apiData) => {
+      const videogameToStore = {
+        name: apiData.name,
+        description: apiData.description,
+        platforms: apiData.platforms.map(platform => platform.platform.name).join(', '), 
+        image: apiData.background_image,
+        releaseDate: apiData.released,
+        rating: apiData.rating,
+      };
+
+      // Guarda el videojuego en la base de datos
+      await Videogame.create(videogameToStore);
+    });
+
+    return res.status(200).json({ message: 'Datos de videojuegos almacenados exitosamente' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener los videojuegos desde la API' });
+    return res.status(500).json({ error: 'Error al obtener y almacenar los datos de videojuegos' });
   }
 };
 

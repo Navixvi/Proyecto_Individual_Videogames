@@ -1,5 +1,5 @@
 const createVideogame = async (req, res) => {
-    const { name, description, platforms, image, releaseDate, rating, genreIds } = req.body;
+    const { name, description, platforms, image, releaseDate, rating, genreIds, userId } = req.body;
   
     try {
       const newVideogame = await Videogame.create({
@@ -9,7 +9,9 @@ const createVideogame = async (req, res) => {
         image,
         releaseDate,
         rating,
-      });
+        genreIds,
+        userId,
+     });
   
       await newVideogame.setGenres(genreIds);
   

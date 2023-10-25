@@ -17,7 +17,7 @@ const router = Router();
 router.post('/videogames', createVideogame);
 router.get('/genres', getAllGenres); 
 router.get('/videogames', getAllVideogames); 
-router.get('/videogames/:idVideogame', getVideogameById); 
+router.get('/videogames/:id', getVideogameById); 
 router.get('/videogames/name', getVideoGamesByName); 
 
 
