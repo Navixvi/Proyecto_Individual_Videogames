@@ -4,7 +4,7 @@ const { Videogame } = require('../models/Videogame');
 
 const getAllVideogames = async (req, res) => {
   try {
-    const response = await axios.get('https://api.rawg.io/api/games?key=d4ea8f08c5474a05a63307882cbd5da1');
+    const response = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`);
     const dataFromAPI = response.data.results;
 
 

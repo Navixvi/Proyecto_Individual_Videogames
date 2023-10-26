@@ -15,8 +15,7 @@ const getVideoGamesByName = async (req, res) => {
       limit: 15,
     });
 
-    const key = process.env.API_KEY; 
-    const response = await axios.get(`https://api.rawg.io/api/games?key=d4ea8f08c5474a05a63307882cbd5da1&search=${name}`);
+    const response = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${name}`);
     const videoGamesFromAPI = response.data.results.map(game => ({
       id: game.id,
       name: game.name,
