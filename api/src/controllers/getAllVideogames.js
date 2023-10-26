@@ -1,24 +1,38 @@
 const axios = require('axios');
-const  { Videogame }  = require('../models/Videogame'); 
+const { Videogame } = require('../models/Videogame');
+
 
 const getAllVideogames = async (req, res) => {
   try {
     const response = await axios.get('https://api.rawg.io/api/games?key=d4ea8f08c5474a05a63307882cbd5da1');
     const dataFromAPI = response.data.results;
 
-    // Procesa los datos y guárdalos en la base de datos
 
     dataFromAPI.forEach(async (apiData) => {
-      const videogameToStore = {
-        name: apiData.name,
-        description: apiData.description,
-        platforms: apiData.platforms.map(platform => platform.platform.name).join(', '), 
-        image: apiData.background_image,
-        releaseDate: apiData.released,
-        rating: apiData.rating,
-      };
+      const {
+        name,
+        description,
+        platforms,
+        background_image,
+        released,
+        rating,
+      } = apiData;
 
-      // Guarda el videojuego en la base de datos
+      const platformsString = platforms
+        ? platforms.map(platform => platform.platform.name).join(', ')
+        : '';
+
+      const videogameToStore = {
+        name: name || '',
+        description: description || '',
+        platforms: platformsString,
+        image: background_image || '',
+        releaseDate: released || '',
+        rating: rating || 0,
+      };
+     
+     //console.log(videogameToStore);
+    // Guarda el videojuego en la base de datos
       await Videogame.create(videogameToStore);
     });
 

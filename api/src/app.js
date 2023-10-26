@@ -3,14 +3,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
-const PORT = 3001
 const { conn } = require('./db.js');
-const app = express();
-
-require('./db.js');
+const PORT = 3001;
 
 const server = express();
-
 server.name = 'API';
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -26,31 +22,24 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
-app.get('/videogames', (req, res) => {
-});
-app.get('/videogames/:idVideogame', (req, res) => {
-});
 
-app.get('/videogames/name', (req, res) => {
-});
-app.post('/videogames', (req, res) => {
-});
-app.get('/genres', (req, res) => {
-});
-
-
-server.listen(PORT, () => {
-  conn.sync({force:true});
-  console.log('Server raised in port: ' + PORT);
-});
+// Realiza la sincronización de la base de datos antes de iniciar el servidor
+conn.sync({ force: true })
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log('Server raised in port: ' + PORT);
+    });
+  })
+  .catch((error) => {
+    console.error('Error al sincronizar la base de datos:', error);
+  });
 
 // Error catching endware.
-server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+server.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);
   res.status(status).send(message);
 });
-
 
 module.exports = server;

@@ -28,5 +28,28 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.FLOAT, 
     },
-  });
+  },{ timestamps: false });
 };
+
+// const { Model, DataTypes } = require('sequelize');
+
+// module.exports = (sequelize) => {
+//   class Videogame extends Model {
+//     // ...
+//   }
+
+//   Videogame.init({
+//     name: DataTypes.STRING,
+//     description: DataTypes.TEXT,
+//     platforms: DataTypes.STRING,
+//     image: DataTypes.STRING,
+//     releaseDate: DataTypes.DATE,
+//     rating: DataTypes.FLOAT,
+//   }, {
+//     sequelize,
+//     modelName: 'Videogame',
+//   });
+
+//   return Videogame;
+// };
+
