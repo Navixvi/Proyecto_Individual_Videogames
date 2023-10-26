@@ -1,6 +1,5 @@
 const axios = require('axios');
-const { Videogame } = require('../models/Videogame');
-
+const  { Videogame } = require('../db');
 
 const getAllVideogames = async (req, res) => {
   try {
@@ -30,10 +29,10 @@ const getAllVideogames = async (req, res) => {
         releaseDate: released || '',
         rating: rating || 0,
       };
-     
+     //console.log(VideogameModel);
      //console.log(videogameToStore);
     // Guarda el videojuego en la base de datos
-      await Videogame.create(videogameToStore);
+       Videogame.create(videogameToStore);
     });
 
     return res.status(200).json({ message: 'Datos de videojuegos almacenados exitosamente' });
