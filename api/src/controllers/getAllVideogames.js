@@ -1,44 +1,35 @@
 const axios = require('axios');
-const  { Videogame } = require('../db');
+const { Videogame } = require('../db');
 
 const getAllVideogames = async (req, res) => {
   try {
-    const response = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`);
-    const dataFromAPI = response.data.results;
+    // Primero, obtén los videojuegos de la API
+    const apiResponse = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`);
+    const apiData = apiResponse.data.results;
 
+    // Luego, obtén los videojuegos de la base de datos
+    const dbData = await Videogame.findAll();
 
-    dataFromAPI.forEach(async (apiData) => {
-      const {
-        name,
-        description,
-        platforms,
-        background_image,
-        released,
-        rating,
-      } = apiData;
+    // Utilizamos un conjunto (Set) para evitar duplicados
+    const allVideogamesSet = new Set();
 
-      const platformsString = platforms
-        ? platforms.map(platform => platform.platform.name).join(', ')
-        : '';
-
-      const videogameToStore = {
-        name: name || '',
-        description: description || '',
-        platforms: platformsString,
-        image: background_image || '',
-        releaseDate: released || '',
-        rating: rating || 0,
-      };
-     //console.log(VideogameModel);
-     //console.log(videogameToStore);
-    // Guarda el videojuego en la base de datos
-       Videogame.create(videogameToStore);
+    // Agregamos los videojuegos de la API al conjunto
+    apiData.forEach((apiGame) => {
+      allVideogamesSet.add(JSON.stringify(apiGame));
     });
 
-    return res.status(200).json({ message: 'Datos de videojuegos almacenados exitosamente' });
+    // Agregamos los videojuegos de la base de datos al conjunto
+    dbData.forEach((dbGame) => {
+      allVideogamesSet.add(JSON.stringify(dbGame));
+    });
+
+    // Convertimos el conjunto de nuevo a una lista
+    const allVideogames = Array.from(allVideogamesSet).map((game) => JSON.parse(game));
+
+    return res.status(200).json({ videogames: allVideogames });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error al obtener y almacenar los datos de videojuegos' });
+    return res.status(500).json({ error: 'Error al obtener y combinar los datos de videojuegos' });
   }
 };
 

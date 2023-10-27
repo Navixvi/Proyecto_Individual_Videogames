@@ -2,7 +2,7 @@ const { Router } = require('express');
 const createVideogame = require('../controllers/createVideogame');
 const getAllGenres = require('../controllers/getAllGenres');
 const getAllVideogames = require('../controllers/getAllVideogames');
-const getVideogameById = require('../controllers/getVideogameById');
+const { getVideogameById } = require('../controllers/getVideogameById');
 const getVideoGamesByName = require('../controllers/searchVideogamesByName');
 
 // Importar todos los routers;
