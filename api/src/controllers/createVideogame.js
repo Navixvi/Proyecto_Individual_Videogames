@@ -1,3 +1,4 @@
+const { Videogame } = require('../db');
 const createVideogame = async (req, res) => {
     const { name, description, platforms, image, releaseDate, rating, genreIds, userId } = req.body;
   

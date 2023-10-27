@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Genres } = require('../db'); // Asegúrate de importar el modelo Genres desde el lugar correcto
+const { Genres } = require('../db'); 
 
 const getAllGenres = async (req, res) => {
   try {
@@ -14,9 +14,10 @@ const getAllGenres = async (req, res) => {
     const genresFromDatabase = await Genres.findAll();
 
     if (genresFromDatabase.length === 0 || !arraysAreEqual(genresForResponse, genresFromDatabase)) {
-      // Si no hay géneros en la base de datos o si los géneros son diferentes a los de la API, los sincronizamos y almacenamos
-      await Genres.sync({ force: true });
+      // si no hay géneros en la base de datos o si los géneros son diferentes a los de la API, los sincronizamos y almacenamos
+      // await Genres.sync({ force: true });
       await Genres.bulkCreate(genresForResponse);
+
     }
 
     res.json(genresForResponse);
