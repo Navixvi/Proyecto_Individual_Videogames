@@ -1,10 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import Home from './components/Home';
+
 import Cards from './components/Cards';
 import Card from './components/Card';
-import Detail from './components/Detail';
+
+import Home from './view/Home';
+import Detail from './view/Detail';
+import LandingPage from './view/LandingPage';
 
 function App() {
   return (
