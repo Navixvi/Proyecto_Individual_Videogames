@@ -1,9 +1,7 @@
+import './App.css';
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-
-import Cards from './components/Cards';
-import Card from './components/Card';
-
+import { Routes, Route, Form } from 'react-router-dom';
+// Rutas
 import Home from './view/Home';
 import Detail from './view/Detail';
 import LandingPage from './view/LandingPage';
@@ -14,8 +12,6 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/cards' element={<Cards />} />
-        <Route path='/card' element={<Card />} />
         <Route path='/detail' element={<Detail />} />
       </Routes>
     </div>
