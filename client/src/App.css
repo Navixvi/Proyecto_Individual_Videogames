@@ -98,3 +98,19 @@
     fill: white;
   }
 }
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+}
+
+.card img {
+  max-width: 100%;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
