@@ -1,22 +1,14 @@
-import Card from '../components/Card';
+import React from 'react';
+import Card from './Card';
 
-const Cards = ({ characters, onClose }) => {
-   return(
-      <div>
-         {characters.map(({ id, name, image, plataform, releaseDate, rating }) => {
-            return <Card
-               key={id}
-               id={id}
-               name={name}
-               image={image}
-               onClose={onClose}
-               plataform={plataform}
-               releaseDate={releaseDate}
-               rating={rating}
-            />;
-         })}
-      </div>
-   )
-}
+const Home = ({ games }) => {
+  return (
+    <div className="card-container">
+      {games.map((game) => (
+        <Card key={game.id} game={game} />
+      ))}
+    </div>
+  );
+};
 
-export default Cards;
+export default Home;

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 .landing-page {
   text-align: center;
   height: 100vh; 
@@ -98,19 +100,51 @@
     fill: white;
   }
 }
+/* Estilo para el componente Card de Home */
 .card {
+  background-color: #f5f5f5;
   border: 1px solid #ddd;
-  padding: 10px;
+  border-radius: 5px;
   margin: 10px;
-  width: 200px;
+  padding: 10px;
+  width: 300px;
+  height: 400px; /* Establece una altura fija para todas las tarjetas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  overflow: hidden; /* Oculta el contenido que desborda */
 }
 
 .card img {
-  max-width: 100%;
+  width: 300px;
+  height: 200px;
+  display: block;
 }
 
-.card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+/* Estilo para el título del Card */
+.card-title {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+/* Estilo para la descripción de géneros del Card */
+.card-genres {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Estilo para el contenedor de las tarjetas (el contenedor de la cuadrícula) */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Crea 5 columnas de igual ancho */
+  gap: 10px; /* Espacio entre las tarjetas */
+}
+.home-tittle {
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+  color: black;
+  letter-spacing: 2px;
+}
+
+.home {
+  background-image: url('./images/Background.jpg'); 
 }
