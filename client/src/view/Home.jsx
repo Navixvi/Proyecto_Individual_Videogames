@@ -18,7 +18,7 @@ const Home = ({ currentPage, totalPages, setPage }) => {
   useEffect(() => {
     const loadVideoGames = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/videogames`, {
+        const response = await axios.get(`http://localhost:3001/videogames/page/:page`, {
           params: {
             page: currentPage,
           },
@@ -69,4 +69,3 @@ const Home = ({ currentPage, totalPages, setPage }) => {
 };
 
 export default connect(mapStateToProps, { setPage })(Home);
-
