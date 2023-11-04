@@ -227,3 +227,49 @@ p:first-child {
 .link-volver-atras:hover {
   background-color: #0056b3; 
 }
+/* Estilos para la barra de navegación */
+.navbar {
+  background-color: #333; /* Color de fondo de la barra */
+  color: #fff; /* Color de texto */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.navbar button {
+  background-color: #007bff; 
+  color: #fff; 
+  border: none;
+  padding: 8px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background-color: #0056b3; 
+}
+
+.navbar input {
+  padding: 8px;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+}
+
+.navbar img {
+  width: 24px;
+  height: 24px; 
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.navbar img:hover {
+  opacity: 0.8; 
+}
+
+.navbar select {
+  padding: 8px;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+}
+
