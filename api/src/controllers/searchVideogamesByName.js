@@ -27,7 +27,11 @@ const searchVideoGamesByName = async (req, res) => {
         image: game.background_image,
         releaseDate: game.released,
       }));
-      res.status(200).json(videoGamesFromAPI);
+      if (videoGamesFromAPI.length === 0) {
+        res.status(404).json({ error: 'No se encontraron videojuegos con ese nombre.' });
+      } else {
+        res.status(200).json(videoGamesFromAPI);
+      }
     } else {
       res.status(200).json(videoGamesFromDatabase);
     }

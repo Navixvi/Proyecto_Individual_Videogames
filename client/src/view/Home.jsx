@@ -45,7 +45,6 @@ const Home = ({ currentPage, totalPages, setPage }) => {
 
   return (
     <div className='home'>
-      {/* Utiliza el componente NavBar aquí */}
       <NavBar currentPage={currentPage} totalPages={totalPages} prevPage={prevPage} nextPage={nextPage} />
       <h1 className='home-title'>Videogames Henry</h1>
       <div className="card-list">

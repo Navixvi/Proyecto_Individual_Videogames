@@ -1,11 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
+  const navigate = useNavigate(); // Obtén la función de navegación
+
+  const handleSearch = (searchResults) => {
+    console.log('Resultados de búsqueda:', searchResults);
+
+    navigate('/home');
+  };
+
   return (
     <div className="navbar">
-      <Link to="/home"> 
-      <img src="/src/images/house.png" alt="Home" />
+      <Link to="/home">
+        <img src="/src/images/house.png" alt="Home" />
       </Link>
       <button onClick={prevPage} disabled={currentPage === 1}>
         Anterior
@@ -13,7 +22,7 @@ const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
       <button onClick={nextPage} disabled={currentPage === totalPages}>
         Siguiente
       </button>
-      <input type="text" placeholder="Buscar..." />
+      <SearchBar onSearch={handleSearch} />
       <select>
         <option value="filtro1">Filtro 1</option>
         <option value="filtro2">Filtro 2</option>

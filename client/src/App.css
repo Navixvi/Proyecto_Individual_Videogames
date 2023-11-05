@@ -100,7 +100,7 @@
     fill: white;
   }
 }
-/* Estilo para el componente Card de Home */
+
 .card {
   background-color: #f5f5f5;
   border: 1px solid #ddd;
@@ -108,10 +108,10 @@
   margin: 10px;
   padding: 10px;
   width: 300px;
-  height: 400px; /* Establece una altura fija para todas las tarjetas */
+  height: 400px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: inline-block;
-  overflow: hidden; /* Oculta el contenido que desborda */
+  overflow: hidden; 
 }
 
 .card img {
@@ -120,23 +120,23 @@
   display: block;
 }
 
-/* Estilo para el título del Card */
+
 .card-title {
   font-size: 1.5rem;
   margin: 10px 0;
 }
 
-/* Estilo para la descripción de géneros del Card */
+
 .card-genres {
   font-size: 1rem;
   color: #555;
 }
 
-/* Estilo para el contenedor de las tarjetas (el contenedor de la cuadrícula) */
+
 .card-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Crea 5 columnas de igual ancho */
-  gap: 10px; /* Espacio entre las tarjetas */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 10px; 
 }
 .home-tittle {
   text-align: center;
@@ -227,10 +227,10 @@ p:first-child {
 .link-volver-atras:hover {
   background-color: #0056b3; 
 }
-/* Estilos para la barra de navegación */
+
 .navbar {
-  background-color: #333; /* Color de fondo de la barra */
-  color: #fff; /* Color de texto */
+  background-color: #333; 
+  color: #fff; 
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -271,5 +271,25 @@ p:first-child {
   padding: 8px;
   border: 1px solid #ccc; 
   border-radius: 5px;
+}
+.search-bar {
+  display: flex;  
+  align-items: center; 
+}
+
+.search-bar input {
+  width: 70%; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-bar .search-button {
+  background-color: #007bff; 
+  color: #fff;
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 

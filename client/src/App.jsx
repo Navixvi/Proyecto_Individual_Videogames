@@ -5,6 +5,7 @@ import { Routes, Route,} from 'react-router-dom';
 import Home from './view/Home';
 import Detail from './view/Detail';
 import LandingPage from './view/LandingPage';
+import Results from './view/Results';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/home' element={<Home />} />
         <Route path='/detail/:id' element={<Detail />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </div>
   )
