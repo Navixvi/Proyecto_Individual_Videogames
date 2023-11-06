@@ -3,18 +3,25 @@ import { useNavigate } from 'react-router-dom';
 
 const Card = ({ game }) => {
   const navigate = useNavigate();
-  
+
   const handleClick = () => {
-    navigate(`/detail/${game.id}`); 
+    navigate(`/detail/${game.id}`);
   };
+
+  if (!game) {
+    return null; // No se renderiza nada si los datos de juego son indefinidos
+  }
 
   return (
     <div onClick={handleClick} className="card">
-      <img src={game.background_image} alt={game.name} />
+      {game.background_image && <img src={game.background_image} alt={game.name} />}
       <h3 className="heading">{game.name}</h3>
-      <p>Géneros: {game.genres && game.genres.map((genre) => genre.name).join(', ')}</p>
+      <p>
+        Géneros: {game.genres && game.genres.map((genre) => genre.name).join(', ')}
+      </p>
     </div>
   );
 };
+
 
 export default Card;

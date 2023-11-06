@@ -6,6 +6,7 @@ import Home from './view/Home';
 import Detail from './view/Detail';
 import LandingPage from './view/LandingPage';
 import Results from './view/Results';
+import Form from './view/Form'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/detail/:id' element={<Detail />} />
         <Route path="/results" element={<Results />} />
+        <Route path='/create' element={<Form />} />
       </Routes>
     </div>
   )

@@ -15,7 +15,7 @@ const searchVideoGamesByName = async (req, res) => {
       },
       limit: 15,
     });
-
+    
     if (videoGamesFromDatabase.length === 0) {
       const response = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${name}`);
       
@@ -24,9 +24,11 @@ const searchVideoGamesByName = async (req, res) => {
         name: game.name,
         description: game.description,
         platforms: game.platforms.map((platform) => platform.platform.name),
-        image: game.background_image,
+        image: game.background_image, // Usa game.background_image en lugar de game.image
         releaseDate: game.released,
       }));
+
+      console.log(videoGamesFromAPI);
       if (videoGamesFromAPI.length === 0) {
         res.status(404).json({ error: 'No se encontraron videojuegos con ese nombre.' });
       } else {
@@ -35,6 +37,7 @@ const searchVideoGamesByName = async (req, res) => {
     } else {
       res.status(200).json(videoGamesFromDatabase);
     }
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al buscar videojuegos por nombre' });

@@ -4,12 +4,22 @@ import { useParams, Link } from 'react-router-dom';
 
 const Detail = () => {
   const [gameDetails, setGameDetails] = useState({});
-  const { id } = useParams();
-
+  const { id } = useParams(); 
   useEffect(() => {
     const fetchGameDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/videogames/${id}`);
+        // Determina si 'id' es un UUID o un número
+        const isUUID = id.match(/^[0-9a-fA-F-]{36}$/); // Verifica si 'id' es un UUID válido
+
+        let response;
+        if (isUUID) {
+          // Si es un UUID, realiza la solicitud GET por UUID
+          response = await axios.get(`http://localhost:3001/videogames/by-uuid/${id}`);
+        } else {
+          // Si es un número, realiza la solicitud GET por ID numérico
+          response = await axios.get(`http://localhost:3001/videogames/${id}`);
+        }
+
         setGameDetails(response.data);
       } catch (error) {
         console.error('Error al obtener los detalles del juego:', error);
@@ -19,9 +29,10 @@ const Detail = () => {
     fetchGameDetails();
   }, [id]);
 
-  if (!gameDetails.id) {
+  if (!gameDetails || !gameDetails.id) {
     return <div>Cargando...</div>;
   }
+  
 
   const renderDescription = () => {
     return { __html: gameDetails.description };
@@ -42,7 +53,7 @@ const Detail = () => {
           <p>Fecha de Lanzamiento: {gameDetails.released || 'Fecha de lanzamiento no disponible'}</p>
           <p>Calificación: {gameDetails.rating || 'Calificación no disponible'}</p>
           <p>Géneros: {gameDetails.genres && gameDetails.genres.length > 0 ? gameDetails.genres.map(genre => genre.name).join(', ') : 'Géneros no disponibles'}</p>
-          <Link to="/home" className="link-volver-atras">Volver atrás</Link> 
+          <Link to="/home" className="link-volver-atras">Volver atrás</Link>
         </div>
       </div>
     </div>
@@ -50,6 +61,7 @@ const Detail = () => {
 };
 
 export default Detail;
+
 
 
 

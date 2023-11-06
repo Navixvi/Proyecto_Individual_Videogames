@@ -3,12 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
-  const navigate = useNavigate(); // Obtén la función de navegación
+  const navigate = useNavigate();
 
   const handleSearch = (searchResults) => {
     console.log('Resultados de búsqueda:', searchResults);
-
     navigate('/home');
+  };
+
+  const handleCreate = () => {
+    navigate('/create');
   };
 
   return (
@@ -27,6 +30,7 @@ const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
         <option value="filtro1">Filtro 1</option>
         <option value="filtro2">Filtro 2</option>
       </select>
+      <button onClick={handleCreate}>Crear</button> 
     </div>
   );
 };
