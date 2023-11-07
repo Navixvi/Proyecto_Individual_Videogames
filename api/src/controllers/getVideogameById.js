@@ -1,49 +1,69 @@
 const axios = require('axios');
-const { Videogame, Genres } = require('../db');
+const { Videogame, Genres, VideojuegoGenero } = require('../db');
 
-// Controlador para obtener un videojuego por ID
 async function getVideogameById(req, res) {
   const { id } = req.params;
 
   try {
     if (isValidUUID(id)) {
-      // Buscar en la base de datos por UUID
-      const videogame = await getVideogameFromDatabase(id);
-      res.status(200).json(videogame);
-    } else {
-      // Buscar en la API usando axios
-      const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`);
-      const videogame = response.data;
-      res.status(200).json(videogame);
+      const dbVideogame = await getVideogameFromDatabase(id);
+
+      if (dbVideogame) {
+        console.log('Videojuego encontrado en la base de datos:', dbVideogame);
+        return res.status(200).json(dbVideogame);
+      } else {
+        console.log('El videojuego no se encontró en la base de datos.');
+        throw new Error('El videojuego no se encontró en la base de datos.');
+      }
     }
+
+    const apiVideogame = await getVideogameFromAPI(id);
+    console.log('Videojuego obtenido de la API:', apiVideogame);
+    res.status(200).json(apiVideogame);
   } catch (error) {
-    console.error(error);
+    console.error('Error al obtener el videojuego por ID:', error.message);
     res.status(500).json({ error: 'Error al obtener el videojuego por ID' });
   }
 }
 
-// Función para comprobar si un valor es un UUID válido
 function isValidUUID(uuid) {
   return /^[0-9a-fA-F-]{36}$/.test(uuid);
 }
 
-// Función para obtener un videojuego de la base de datos por UUID
 async function getVideogameFromDatabase(uuid) {
   try {
-    // Realiza la consulta a la base de datos utilizando el modelo Videogame y buscando por UUID
-    const videogame = await Videogame.findOne({
-      where: {
-        uuid: uuid,
-      },
-      include: Genres, // Incluye los datos del género asociado al videojuego
+    const dbVideogame = await Videogame.findOne({
+      where: { uuid: uuid },
+      include: [
+        {
+          model: Genres,
+          through: {
+            model: VideojuegoGenero,
+          },
+        },
+      ],
     });
 
-    if (!videogame) {
-      throw new Error('Videojuego no encontrado');
+    if (dbVideogame) {
+      console.log('Videojuego encontrado en la base de datos:', dbVideogame);
+    } else {
+      console.log('El videojuego no se encontró en la base de datos.');
     }
 
-    return videogame;
+    return dbVideogame;
   } catch (error) {
+    console.error('Error al obtener el videojuego de la base de datos:', error.message);
+    return null;
+  }
+}
+
+async function getVideogameFromAPI(id) {
+  try {
+    const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`);
+    console.log('Videojuego obtenido de la API:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener el videojuego de la API:', error.message);
     throw error;
   }
 }

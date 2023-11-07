@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from './SearchBar'
 
-const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
+const NavBar = ({ currentPage, totalPages, prevPage, nextPage, handleSort }) => {
   const navigate = useNavigate();
 
   const handleSearch = (searchResults) => {
@@ -25,15 +25,17 @@ const NavBar = ({ currentPage, totalPages, prevPage, nextPage }) => {
       <button onClick={nextPage} disabled={currentPage === totalPages}>
         Siguiente
       </button>
+      <button onClick={() => handleSort('asc')}>Ordenar A-Z</button>
+      <button onClick={() => handleSort('desc')}>Ordenar Z-A</button>
       <SearchBar onSearch={handleSearch} />
       <select>
         <option value="filtro1">Filtro 1</option>
         <option value="filtro2">Filtro 2</option>
       </select>
-      <button onClick={handleCreate}>Crear</button> 
+      <button onClick={handleCreate}>Crear</button>
     </div>
   );
 };
 
 export default NavBar;
-
+``

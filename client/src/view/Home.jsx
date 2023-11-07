@@ -3,7 +3,7 @@ import axios from 'axios';
 import Card from '../components/Card';
 import { connect } from 'react-redux';
 import { setPage } from '../redux/action';
-import NavBar from '../components/NavBar'; 
+import NavBar from '../components/NavBar';
 
 const mapStateToProps = (state) => ({
   currentPage: state.pagination.currentPage,
@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
 
 const Home = ({ currentPage, totalPages, setPage }) => {
   const [videoGames, setVideoGames] = useState([]);
+  const [sortBy, setSortBy] = useState('asc'); // Estado local para el tipo de ordenamiento
 
   useEffect(() => {
     const loadVideoGames = async () => {
@@ -31,6 +32,18 @@ const Home = ({ currentPage, totalPages, setPage }) => {
     loadVideoGames();
   }, [currentPage]);
 
+  const handleSort = (type) => {
+    setSortBy(type);
+  };
+
+  const sortedGames = [...videoGames].sort((a, b) => {
+    if (sortBy === 'asc') {
+      return a.name.localeCompare(b.name); // Ordena de la A a la Z
+    } else {
+      return b.name.localeCompare(a.name); // Ordena de la Z a la A
+    }
+  });
+
   const nextPage = () => {
     if (currentPage < totalPages) {
       setPage(currentPage + 1);
@@ -45,13 +58,13 @@ const Home = ({ currentPage, totalPages, setPage }) => {
 
   return (
     <div className='home'>
-      <NavBar currentPage={currentPage} totalPages={totalPages} prevPage={prevPage} nextPage={nextPage} />
+      <NavBar currentPage={currentPage} totalPages={totalPages} prevPage={prevPage} nextPage={nextPage} handleSort={handleSort} />
       <h1 className='home-title'>Videogames Henry</h1>
       <div className="card-list">
-      {videoGames.map((game) => (
-      <Card key={game.id} game={game} />
-      ))}
-    </div>
+        {sortedGames.map((game) => (
+          <Card key={game.id} game={game} sortBy={sortBy} />
+        ))}
+      </div>
     </div>
   );
 };
