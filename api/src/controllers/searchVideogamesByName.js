@@ -22,10 +22,7 @@ const searchVideoGamesByName = async (req, res) => {
       const videoGamesFromAPI = response.data.results.slice(0, 15).map((game) => ({
         id: game.id,
         name: game.name,
-        description: game.description,
-        platforms: game.platforms.map((platform) => platform.platform.name),
-        image: game.background_image, // Usa game.background_image en lugar de game.image
-        releaseDate: game.released,
+        image: game.image,
       }));
 
       console.log(videoGamesFromAPI);

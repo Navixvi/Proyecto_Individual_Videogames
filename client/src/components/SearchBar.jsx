@@ -13,6 +13,7 @@ const SearchBar = () => {
 
       // Navega a la ruta /results y pasa los resultados como estado
       navigate('/results', { state: { searchResults } });
+      console.log(searchResults);
     } catch (error) {
       console.error('Error al buscar videojuegos:', error);
     }
