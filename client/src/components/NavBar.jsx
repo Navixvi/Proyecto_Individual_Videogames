@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 
-const NavBar = ({ currentPage, totalPages, prevPage, nextPage, handleSort }) => {
+const NavBar = ({ currentPage, totalPages, prevPage, nextPage, handleSort, genres, handleGenreChange }) => {
   const navigate = useNavigate();
 
   const handleSearch = (searchResults) => {
@@ -28,10 +28,18 @@ const NavBar = ({ currentPage, totalPages, prevPage, nextPage, handleSort }) => 
       <button onClick={() => handleSort('asc')}>Ordenar A-Z</button>
       <button onClick={() => handleSort('desc')}>Ordenar Z-A</button>
       <SearchBar onSearch={handleSearch} />
-      <select>
-        <option value="filtro1">Filtro 1</option>
-        <option value="filtro2">Filtro 2</option>
-      </select>
+      <div className="genre-filters">
+        <h3>Selecciona géneros:</h3>
+        <select onChange={handleGenreChange}>
+          <option value="">Todos</option>
+          {genres && genres.map((genre) => (
+            <option key={genre.id} value={genre.id}>
+              {genre.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <button onClick={handleCreate}>Crear</button>
     </div>
   );

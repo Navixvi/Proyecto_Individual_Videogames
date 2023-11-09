@@ -1,4 +1,4 @@
-import { SET_PAGE, } from './actions-types';
+import { SET_PAGE, SET_SELECTED_GENRE } from './actions-types';
 
 export const setPage = (page) => ({
   type: SET_PAGE,
@@ -10,3 +10,7 @@ export const setSearchResults = (searchResults) => ({
   searchResults,
 });
 
+export const setSelectedGenre = (genreId) => ({
+  type: SET_SELECTED_GENRE,
+  payload: genreId,
+});

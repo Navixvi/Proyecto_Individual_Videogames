@@ -19,7 +19,6 @@ const SearchBar = () => {
 
       dispatch(setSearchResults(searchResults));
 
-      // Corrige la siguiente línea para pasar searchResults como estado
       navigate('/results', { state: { searchResults } });
       console.log(searchResults);
     } catch (error) {

@@ -1,4 +1,4 @@
-import { SET_SEARCH_RESULTS } from './actions-types';
+import { SET_SEARCH_RESULTS, SET_SELECTED_GENRE } from './actions-types';
 
 const paginationInitialState = {
   currentPage: 1,
@@ -23,7 +23,7 @@ const searchInitialState = {
   searchResults: [], 
 };
 
-const searchReducer = (state = searchInitialState, action) => {
+export const searchReducer = (state = searchInitialState, action) => {
   switch (action.type) {
     case SET_SEARCH_RESULTS:
       return {
@@ -36,4 +36,21 @@ const searchReducer = (state = searchInitialState, action) => {
   }
 };
 
-export default searchReducer;
+const initialState = {
+  selectedGenre: '', 
+};
+
+export const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_SELECTED_GENRE:
+      return {
+        ...state,
+        selectedGenre: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+
+
