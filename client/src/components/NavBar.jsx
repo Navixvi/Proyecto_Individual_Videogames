@@ -38,4 +38,3 @@ const NavBar = ({ currentPage, totalPages, prevPage, nextPage, handleSort }) => 
 };
 
 export default NavBar;
-``

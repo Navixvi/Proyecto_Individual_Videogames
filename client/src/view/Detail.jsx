@@ -14,8 +14,10 @@ const Detail = () => {
         let response;
         if (isUUID) {
           // Si es un UUID, realiza la solicitud GET por UUID
+          console.log(isUUID);
           response = await axios.get(`http://localhost:3001/videogames/by-uuid/${id}`);
         } else {
+          console.log(isUUID);
           // Si es un número, realiza la solicitud GET por ID numérico
           response = await axios.get(`http://localhost:3001/videogames/${id}`);
         }

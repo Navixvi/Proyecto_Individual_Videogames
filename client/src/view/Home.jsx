@@ -12,8 +12,7 @@ const mapStateToProps = (state) => ({
 
 const Home = ({ currentPage, totalPages, setPage }) => {
   const [videoGames, setVideoGames] = useState([]);
-  const [sortBy, setSortBy] = useState('asc'); // Estado local para el tipo de ordenamiento
-
+  const [sortBy, setSortBy] = useState('asc'); 
   useEffect(() => {
     const loadVideoGames = async () => {
       try {

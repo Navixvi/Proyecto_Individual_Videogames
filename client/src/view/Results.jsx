@@ -13,7 +13,6 @@ const Results = () => {
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((game) => (
             <Card key={game.id} game={game} />
-            
           ))
         ) : (
           <p>No se encontraron resultados.</p>

@@ -9,7 +9,7 @@ const Card = ({ game }) => {
   };
 
   if (!game) {
-    return null; // No se renderiza nada si los datos de juego son indefinidos
+    return null; 
   }
 
   return (
