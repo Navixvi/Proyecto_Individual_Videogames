@@ -45,6 +45,8 @@ async function getVideogameFromDatabase(uuid) {
     });
 
     if (dbVideogame) {
+      // Convierte las plataformas de un string a un array
+      dbVideogame.platforms = dbVideogame.platforms.split(', ').map(platform => platform.trim());
       console.log('Videojuego encontrado en la base de datos:', dbVideogame);
     } else {
       console.log('El videojuego no se encontró en la base de datos.');
