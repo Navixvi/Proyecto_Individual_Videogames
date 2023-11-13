@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Genres } = require('../db'); 
+const { Genre } = require('../db'); 
 
 const getAllGenres = async (req, res) => {
   try {
@@ -11,18 +11,18 @@ const getAllGenres = async (req, res) => {
       name: genre.name,
     }));
 
-    const genresFromDatabase = await Genres.findAll();
+    const genresFromDatabase = await Genre.findAll();
 
     if (genresFromDatabase.length === 0 || !arraysAreEqual(genresForResponse, genresFromDatabase)) {
       // si no hay géneros en la base de datos o si los géneros son diferentes a los de la API, los sincronizamos y almacenamos
       // await Genres.sync({ force: true });
-      await Genres.bulkCreate(genresForResponse);
+      await Genre.bulkCreate(genresForResponse);
 
     }
 
     res.json(genresForResponse);
   } catch (error) {
-    console.error(error);
+  
     res.status(500).json({ error: 'Error al obtener y almacenar los géneros' });
   }
 };

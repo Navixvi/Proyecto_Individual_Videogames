@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { Videogame } = require('../db');
+const { Videogame, Genre, VideojuegoGenero } = require('../db');
 
 const getAllVideogames = async (req, res) => {
   const page = req.query.page || 1; // Página actual, se obtiene de la consulta
   const pageSize = 15; // Cantidad máxima de videojuegos por página
-  console.log(page);
+
   // Calcula el índice de inicio y fin para la paginación
   const startIndex = (page - 1) * pageSize;
   const endIndex = page * pageSize;
@@ -14,6 +14,15 @@ const getAllVideogames = async (req, res) => {
   try {
     // Obtén los videojuegos de la base de datos para la página actual
     const dbData = await Videogame.findAll({
+      include: [
+        {
+          model: Genre,
+          as: 'genres',
+          through: {
+            model: VideojuegoGenero,
+          },
+        },
+      ],
       offset: startIndex,
       limit: pageSize,
     });

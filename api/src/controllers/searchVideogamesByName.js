@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const axios = require('axios');
-const { Videogame, Genres } = require('../db');
+const { Videogame, Genre } = require('../db');
 
 const searchVideoGamesByName = async (req, res) => {
   const { name } = req.query;
@@ -15,9 +15,10 @@ const searchVideoGamesByName = async (req, res) => {
       },
       include: [
         {
-          model: Genres,  // Asegúrate de que Genre esté importado correctamente
+          model: Genre,  // Asegúrate de que Genre esté importado correctamente
           attributes: ['id', 'name'],
           through: { attributes: [] }, // Para evitar traer la tabla intermedia Genre_Videogame
+          as: 'genres'
         },
       ],
       limit: 15,

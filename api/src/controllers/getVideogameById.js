@@ -1,12 +1,12 @@
 const axios = require('axios');
-const { Videogame, Genres, VideojuegoGenero } = require('../db');
+const { Videogame, Genre, VideojuegoGenero } = require('../db');
 
 async function getVideogameById(req, res) {
-  const { id } = req.params;
+  const { id, uuid } = req.params;
 
   try {
-    if (isValidUUID(id)) {
-      const dbVideogame = await getVideogameFromDatabase(id);
+    if (uuid != undefined && isValidUUID(uuid)) {
+      const dbVideogame = await getVideogameFromDatabase(uuid);
 
       if (dbVideogame) {
         console.log('Videojuego encontrado en la base de datos:', dbVideogame);
@@ -18,7 +18,6 @@ async function getVideogameById(req, res) {
     }
 
     const apiVideogame = await getVideogameFromAPI(id);
-    console.log('Videojuego obtenido de la API:', apiVideogame);
     res.status(200).json(apiVideogame);
   } catch (error) {
     console.error('Error al obtener el videojuego por ID:', error.message);
@@ -33,10 +32,11 @@ function isValidUUID(uuid) {
 async function getVideogameFromDatabase(uuid) {
   try {
     const dbVideogame = await Videogame.findOne({
-      where: { uuid: uuid },
+      where: { id: uuid },
       include: [
         {
-          model: Genres,
+          model: Genre,
+          as: 'genres',
           through: {
             model: VideojuegoGenero,
           },

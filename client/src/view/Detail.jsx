@@ -51,8 +51,8 @@ const Detail = () => {
             <p>Descripción:</p>
             <div dangerouslySetInnerHTML={renderDescription()} />
           </div>
-          <p>Plataforma: {gameDetails.platforms && gameDetails.platforms.length > 0 ? gameDetails.platforms.map(platform => platform.platform.name).join(', ') : 'Plataforma no disponible'}</p>
-          <p>Fecha de Lanzamiento: {gameDetails.released || 'Fecha de lanzamiento no disponible'}</p>
+          <p>Plataforma: {gameDetails.platforms && Array.isArray(gameDetails.platforms) && gameDetails.platforms.length > 0 ? gameDetails.platforms.map(platform => platform.platform.name).join(', ') : 'Plataforma no disponible'}</p>
+          <p>Fecha de Lanzamiento: {gameDetails.released || gameDetails.releaseDate ||  'Fecha de lanzamiento no disponible'}</p>
           <p>Calificación: {gameDetails.rating || 'Calificación no disponible'}</p>
           <p>Géneros: {gameDetails.genres && gameDetails.genres.length > 0 ? gameDetails.genres.map(genre => genre.name).join(', ') : 'Géneros no disponibles'}</p>
           <Link to="/home" className="link-volver-atras">Volver atrás</Link>
