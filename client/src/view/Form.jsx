@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CreateVideogameForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -49,7 +51,8 @@ function CreateVideogameForm() {
       const response = await axios.post('http://localhost:3001/videogames/create', formData);
 
       if (response.status === 201) {
-        // El videojuego se creó con éxito, puedes mostrar un mensaje de éxito o redirigir a otra página.
+        // El videojuego se creó con éxito, redirigir a /home
+        navigate('/home');
       } else {
         // Manejar errores
       }

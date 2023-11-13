@@ -9,19 +9,19 @@ const Card = ({ game }) => {
   };
 
   if (!game) {
-    return null; 
+    return null;
   }
 
   return (
     <div onClick={handleClick} className="card">
       {game.background_image && <img src={game.background_image} alt={game.name} />}
       <h3 className="heading">{game.name}</h3>
-      <p>
-        Géneros: {game.genres && game.genres.map((genre) => genre.name).join(', ')}
-      </p>
+<p>
+  Géneros: {game.genres && game.genres.length > 0 ? game.genres.map((genre) => genre.name).join(', ') : 'Sin géneros'}
+</p>
+
     </div>
   );
 };
-
 
 export default Card;

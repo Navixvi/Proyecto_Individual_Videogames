@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 const mapStateToProps = (state) => ({
   currentPage: state.pagination.currentPage,
   totalPages: state.pagination.totalPages,
-  selectedGenre: state.selectedGenre, // Agrega selectedGenre como una prop
+  selectedGenre: state.selectedGenre, 
 });
 
 const Home = ({ currentPage, totalPages, setPage, selectedGenre }) => {

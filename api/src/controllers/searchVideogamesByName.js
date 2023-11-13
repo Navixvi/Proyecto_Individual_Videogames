@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const axios = require('axios');
-const { Videogame } = require('../db');
+const { Videogame, Genres } = require('../db');
 
 const searchVideoGamesByName = async (req, res) => {
   const { name } = req.query;
@@ -13,16 +13,24 @@ const searchVideoGamesByName = async (req, res) => {
           [Op.iLike]: `%${name}%`, // Búsqueda insensible a mayúsculas y minúsculas
         },
       },
+      include: [
+        {
+          model: Genres,  // Asegúrate de que Genre esté importado correctamente
+          attributes: ['id', 'name'],
+          through: { attributes: [] }, // Para evitar traer la tabla intermedia Genre_Videogame
+        },
+      ],
       limit: 15,
     });
-    
+
     if (videoGamesFromDatabase.length === 0) {
       const response = await axios.get(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${name}`);
       
       const videoGamesFromAPI = response.data.results.slice(0, 15).map((game) => ({
         id: game.id,
         name: game.name,
-        image: game.image,
+        background_image: game.background_image, // Cambia 'image' a 'background_image'
+        genres: game.genres, // Asegúrate de que la API externa proporciona la información de géneros
       }));
 
       console.log(videoGamesFromAPI);
